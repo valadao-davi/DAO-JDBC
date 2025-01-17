@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.DB;
 import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
@@ -20,19 +22,53 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 	}
 
 	@Override
-	public void insert(Department obj) {
-		// TODO Auto-generated method stub
+	public void insert(Department dep) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("INSERT INTO department "
+					+ "(Name) "
+					+ "VALUES "
+					+ "(?)", Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, dep.getName());
+			int rows = st.executeUpdate();
+			if(rows > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if(rs.next()) {
+					dep.setId(rs.getInt(1));
+
+				}
+				DB.closeResultSet(rs);
+			}
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
 		
 	}
 
 	@Override
-	public void update(Department obj) {
-		// TODO Auto-generated method stub
-		
+	public void update(Department dep) {
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement("UPDATE department "
+					+ "SET Name = ? "
+					+ "WHERE Id = ?", Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, dep.getName());
+			st.setInt(2, dep.getId());
+			st.executeUpdate();
+		}catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(st);
+		}
+				
 	}
 
 	@Override
-	public void deleteById(Integer id) {
+	public void deleteById(Integer dep) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -59,6 +95,10 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 		}catch(SQLException e) {
 			throw new DbException(e.getMessage());
 		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
 	}
 
 	@Override
@@ -76,6 +116,10 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			return list;
 		}catch(SQLException e) {
 			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
 		}
 	}
 

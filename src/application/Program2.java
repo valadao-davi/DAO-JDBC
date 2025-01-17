@@ -20,6 +20,12 @@ public class Program2 {
 			System.out.println(i);
 		}
 		
+		System.out.println("\n=== INSERT A DEPARTMENT === ");
+		Department newDep = new Department(null, "Instruments");
+		departmentDao.insert(newDep);
+		System.out.println(newDep);
+
+		
 //		DB.closeConnection();
 	}
 	
