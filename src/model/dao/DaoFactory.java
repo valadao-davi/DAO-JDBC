@@ -11,7 +11,7 @@ public class DaoFactory {
 	}
 	
 	public static DepartmentDao CreateDepartmentDao() {
-		return new DepartmentDaoJDBC(DB.getConnection());
+		return new DepartmentDaoJDBC(DB.getConnection()); // ao chamar o criador do department Dao ele cria para o JDBC
 	}
 	
 

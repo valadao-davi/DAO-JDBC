@@ -2,6 +2,7 @@ package application;
 
 import java.util.List;
 
+import db.DB;
 import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
 import model.entities.Department;
@@ -30,9 +31,9 @@ public class Program2 {
 		newDep.setId(11);
 		departmentDao.update(newDep);
 
-		
-		
-//		DB.closeConnection();
+		System.out.println("\n=== DELETE A DEPARTMENT === ");
+		departmentDao.deleteById(13);
+		DB.closeConnection();
 	}
 	
 	
