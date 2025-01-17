@@ -25,6 +25,12 @@ public class Program2 {
 		departmentDao.insert(newDep);
 		System.out.println(newDep);
 
+		System.out.println("\n=== UPDATE A DEPARTMENT === ");
+		newDep.setName("Bass");
+		newDep.setId(11);
+		departmentDao.update(newDep);
+
+		
 		
 //		DB.closeConnection();
 	}

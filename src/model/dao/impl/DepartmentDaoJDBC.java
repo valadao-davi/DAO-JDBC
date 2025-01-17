@@ -58,6 +58,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 			st.setString(1, dep.getName());
 			st.setInt(2, dep.getId());
 			st.executeUpdate();
+			System.out.println("Update completed");
 		}catch(SQLException e) {
 			throw new DbException(e.getMessage());
 		}
@@ -69,7 +70,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 	@Override
 	public void deleteById(Integer dep) {
-		// TODO Auto-generated method stub
+		Prepared
 		
 	}
 	private Department instantiateDepartment(ResultSet rs) throws SQLException {
