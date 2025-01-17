@@ -14,7 +14,7 @@ public class Program {
 	public static void main(String[] args) {
 
 		SellerDao sellerDao = DaoFactory.CreateSellerDao(); // Essa interface vai receber os métodos do JDBC
-		System.out.println("=== FIND SELLER BY ID AND RETURN IN BASE OF DEPARTMENT ID ===");
+		System.out.println("\n=== FIND SELLER BY ID AND RETURN IN BASE OF DEPARTMENT ID ===");
 		
 		Seller seller  = sellerDao.findById(3);
 		System.out.println(seller);
@@ -37,6 +37,10 @@ public class Program {
 		sellerDao.insert(seller2);
 		System.out.println("Id of new inserted: " + seller2.getId());
 		
+		System.out.println("\n=== UPDATE SELLER ===");
+		seller = sellerDao.findById(1);
+		seller.setName("Martha Wayne");
+		sellerDao.update(seller);
 	}
 
 }
